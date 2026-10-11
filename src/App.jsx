@@ -1,12 +1,26 @@
-import './App.css';
+import { useState } from 'react';
+import { Header } from './components/Header.jsx';
+import { LoginPage } from './pages/LoginPage.jsx';
+import { MainPage } from './pages/MainPage.jsx';
+import { CosmeticBagPage } from './pages/CosmeticBagPage.jsx';
+import { CarePage } from './pages/CarePage.jsx';
 
-function App() {
+export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activePage, setActivePage] = useState('main');
+
+  if (!isLoggedIn) {
+    return <LoginPage onLogin={() => setIsLoggedIn(true)} />;
+  }
+
   return (
-    <main>
-      <h1>BeautyShelf</h1>
-      <p>Персональний beauty-органайзер</p>
-    </main>
+    <div>
+      <Header activePage={activePage} setActivePage={setActivePage} />
+      <main>
+        {activePage === 'main' && <MainPage />}
+        {activePage === 'bag' && <CosmeticBagPage />}
+        {activePage === 'care' && <CarePage />}
+      </main>
+    </div>
   );
 }
-
-export default App;
