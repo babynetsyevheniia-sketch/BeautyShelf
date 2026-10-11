@@ -1,0 +1,84 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F8F9FA;
+    padding: 20px;
+  }
+  
+  .card {
+    background: #FFFFFF;
+    padding: 32px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+  
+  .logo {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+  }
+  
+  .subtitle {
+    font-size: 11px;
+    color: #9CA3AF;
+    margin-top: 2px;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 16px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 12px;
+    outline: none;
+    background-color: #FAFAFA;
+  }
+  
+  .submitBtn {
+    background-color: #7B61FF;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .submitBtn:hover {
+    background-color: #684AE2;
+  }
+  
+  .footerText {
+    font-size: 11px;
+    color: #9CA3AF;
+    margin-top: 16px;
+  }
+  
+  .link {
+    color: #7B61FF;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 3px;
+  }
