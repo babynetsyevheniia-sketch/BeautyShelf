@@ -1,41 +1,44 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 48px;
-    background-color: #FFFFFF;
-  }
-  
-  .logo {
-    font-size: 18px;
-    font-weight: 700;
-    color: #111827;
-  }
-  
-  .nav {
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
-  
-  .navButton {
-    background: none;
-    border: none;
-    font-size: 15px;
-    font-weight: 500;
-    color: #4B5563;
-    cursor: pointer;
-    padding: 6px 16px;
-    border-radius: 12px;
-    transition: all 0.2s ease;
-  }
-  
-  .navButton:hover {
-    color: #7B61FF;
-  }
-  
-  .active {
-    background-color: #E8E3FF;
-    color: #7B61FF;
-    font-weight: 600;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 60px;
+  background: transparent; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #111827;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navLink {
+  padding: 8px 20px;
+  border-radius: 20px; 
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.navLink:hover {
+  color: #111827;
+}
+
+
+.active {
+  background-color: #ede9fe !important;
+  color: #6d28d9 !important;
+  font-weight: 600;
+}

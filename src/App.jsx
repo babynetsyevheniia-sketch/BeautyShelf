@@ -1,3 +1,4 @@
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Header } from './components/Header.jsx';
 import { LoginPage } from './pages/LoginPage.jsx';
@@ -7,7 +8,6 @@ import { CarePage } from './pages/CarePage.jsx';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activePage, setActivePage] = useState('main');
 
   if (!isLoggedIn) {
     return <LoginPage onLogin={() => setIsLoggedIn(true)} />;
@@ -15,11 +15,15 @@ export default function App() {
 
   return (
     <div>
-      <Header activePage={activePage} setActivePage={setActivePage} />
+      <Header />
       <main>
-        {activePage === 'main' && <MainPage />}
-        {activePage === 'bag' && <CosmeticBagPage />}
-        {activePage === 'care' && <CarePage />}
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/bag" element={<CosmeticBagPage />} />
+          <Route path="/care" element={<CarePage />} />
+          {/* Перенаправлення на головну, якщо введено неіснуючий URL */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
     </div>
   );
