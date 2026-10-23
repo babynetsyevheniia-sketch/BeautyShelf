@@ -1,47 +1,138 @@
+import { useState, useMemo } from 'react';
 import { CosmeticCard } from '../components/CosmeticCard.jsx';
+import { useFetch } from '../hooks/useFetch.js';
 import styles from './CosmeticBagPage.module.css';
 
 export function CosmeticBagPage() {
-  const cosmetics = [
-    { name: 'Skin 1004 Centella Soothing Cream', category: 'Крем', date: '15.10.2026' },
-    { name: 'Perlier Petali di Rosa', category: 'Крем', date: '22.12.2026' },
-    { name: 'Eucerin Sun Protection', category: 'Сонцезахист', date: '26.12.2026' },
-  ];
+  const { data: cosmetics, loading, error, addItem, deleteItem } = useFetch(
+    'https://jsonplaceholder.typicode.com/posts?_limit=4'
+  );
+
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [sortBy, setSortBy] = useState('date');
+
+  const [newName, setNewName] = useState('');
+  const [newCategory, setNewCategory] = useState('');
+  const [newDate, setNewDate] = useState('');
+
+  const normalizedCosmetics = useMemo(() => {
+    if (!Array.isArray(cosmetics)) return [];
+
+    return cosmetics.map((item, idx) => ({
+      id: item.id || `item-${idx}`,
+      name: item.name || item.title || 'Засіб догляду',
+      category: item.category || (idx % 2 === 0 ? 'Крем' : 'Сонцезахист'),
+      date: item.date || `2${idx + 1}.12.2026`,
+    }));
+  }, [cosmetics]);
+
+  const filteredAndSortedCosmetics = useMemo(() => {
+    let result = [...normalizedCosmetics];
+
+    if (selectedCategory !== 'all') {
+      result = result.filter(
+        (item) => item.category && item.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
+
+    if (sortBy === 'name') {
+      result.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === 'date') {
+      result.sort((a, b) => a.date.localeCompare(b.date));
+    }
+
+    return result;
+  }, [normalizedCosmetics, selectedCategory, sortBy]);
+
+  const handleAddCosmetic = async (e) => {
+    e.preventDefault();
+    if (!newName.trim()) return;
+
+    const categoryMap = {
+      cream: 'Крем',
+      serum: 'Сироватка',
+      tonic: 'Тонік',
+      foam: 'Пінка',
+      spf: 'Сонцезахист',
+    };
+
+    const newItem = {
+      name: newName,
+      category: categoryMap[newCategory] || 'Крем',
+      date: newDate || '01.01.2027',
+    };
+
+    await addItem(newItem);
+
+    setNewName('');
+    setNewCategory('');
+    setNewDate('');
+  };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>МОЯ КОСМЕТИЧКА</h2>
 
-      {/* Фільтри */}
       <div className={styles.filters}>
-        <select className={styles.select}>
+        <select 
+          className={styles.select} 
+          value={selectedCategory} 
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
           <option value="all">Усі категорії</option>
-          <option value="cream">Крем</option>
-          <option value="serum">Сироватка</option>
-          <option value="tonic">Тонік</option>
-          <option value="foam">Пінка для вмивання</option>
-          <option value="spf">Сонцезахист (SPF)</option>
+          <option value="крем">Крем</option>
+          <option value="сироватка">Сироватка</option>
+          <option value="тонік">Тонік</option>
+          <option value="пінка">Пінка для вмивання</option>
+          <option value="сонцезахист">Сонцезахист (SPF)</option>
         </select>
 
-        <select className={styles.select}>
+        <select 
+          className={styles.select} 
+          value={sortBy} 
+          onChange={(e) => setSortBy(e.target.value)}
+        >
           <option value="date">За датою придатності</option>
           <option value="name">За назвою (А-Я)</option>
         </select>
       </div>
 
-      {/* Список карток */}
-      <div className={styles.list}>
-        {cosmetics.map((item, idx) => (
-          <CosmeticCard key={idx} {...item} />
-        ))}
-      </div>
+      {loading && <p className={styles.loadingText}>Завантаження косметички...</p>}
+      {error && <p className={styles.errorText}>{error}</p>}
 
-      {/* Форма додавання */}
+      {!loading && !error && (
+        <div className={styles.list}>
+          {filteredAndSortedCosmetics.length > 0 ? (
+            filteredAndSortedCosmetics.map((item) => (
+              <CosmeticCard 
+                key={item.id} 
+                {...item} 
+                onDelete={() => deleteItem(item.id)} 
+              />
+            ))
+          ) : (
+            <p style={{ textAlign: 'center', color: '#666' }}>Засобів не знайдено</p>
+          )}
+        </div>
+      )}
+
       <h3 className={styles.sectionTitle}>ДОДАТИ НОВИЙ ЗАСІБ</h3>
-      <form className={styles.addForm} onSubmit={(e) => e.preventDefault()}>
-        <input type="text" placeholder="Назва засобу" className={styles.inputName} />
+      <form className={styles.addForm} onSubmit={handleAddCosmetic}>
+        <input 
+          type="text" 
+          placeholder="Назва засобу" 
+          className={styles.inputName}
+          value={newName}
+          onChange={(e) => setNewName(e.target.value)}
+          required
+        />
         
-        <select className={styles.select}>
+        <select 
+          className={styles.select}
+          value={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+          required
+        >
           <option value="">Тип</option>
           <option value="cream">Крем</option>
           <option value="serum">Сироватка</option>
@@ -50,7 +141,13 @@ export function CosmeticBagPage() {
           <option value="spf">Сонцезахист</option>
         </select>
 
-        <input type="text" placeholder="Дата" className={styles.select} style={{ width: '100px' }} />
+        <input 
+          type="text" 
+          placeholder="Дата" 
+          className={`${styles.select} ${styles.inputDate}`} 
+          value={newDate}
+          onChange={(e) => setNewDate(e.target.value)}
+        />
         <button type="submit" className={styles.addBtn}>Додати</button>
       </form>
     </div>

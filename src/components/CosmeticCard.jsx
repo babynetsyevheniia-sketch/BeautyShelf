@@ -1,6 +1,6 @@
 import styles from './CosmeticCard.module.css';
 
-export function CosmeticCard({ name, category, date }) {
+export function CosmeticCard({ name, category, date, onDelete }) {
   return (
     <div className={styles.card}>
       <div className={styles.info}>
@@ -8,7 +8,9 @@ export function CosmeticCard({ name, category, date }) {
         <span className={styles.category}>{category}</span>
       </div>
       <span className={styles.date}>{date}</span>
-      <button className={styles.deleteBtn}>Видалити</button>
+      <button className={styles.deleteBtn} onClick={onDelete}>
+        Видалити
+      </button>
     </div>
   );
 }

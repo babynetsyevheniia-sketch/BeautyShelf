@@ -23,3 +23,17 @@
     gap: 28px;
     width: 100%;
   }
+
+.loadingText {
+  text-align: center;
+  padding: 20px;
+}
+
+.errorText {
+  color: #e11d48;
+  text-align: center;
+}
+
+.inputDate {
+  width: 100px;
+}

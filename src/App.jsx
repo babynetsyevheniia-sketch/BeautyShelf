@@ -21,7 +21,6 @@ export default function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/bag" element={<CosmeticBagPage />} />
           <Route path="/care" element={<CarePage />} />
-          {/* Перенаправлення на головну, якщо введено неіснуючий URL */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
