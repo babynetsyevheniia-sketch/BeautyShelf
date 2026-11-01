@@ -5,7 +5,7 @@ import styles from './CosmeticBagPage.module.css';
 
 export function CosmeticBagPage() {
   const { data: cosmetics, loading, error, addItem, deleteItem } = useFetch(
-    'https://jsonplaceholder.typicode.com/posts?_limit=4'
+    'http://localhost:5000/api/cosmetics'
   );
 
   const [selectedCategory, setSelectedCategory] = useState('all');
