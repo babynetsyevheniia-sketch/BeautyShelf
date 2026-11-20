@@ -1,0 +1,60 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px 60px 40px; 
+    width: 100%;
+  }
+  
+  .title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 12px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+    color: #4B5563;
+    margin-bottom: 40px;
+  }
+  
+  .cardsRow {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+    width: 100%;
+  }
+  
+  .tipCard {
+    background-color: #E8E3FF;
+    border-radius: 16px;
+    padding: 32px;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .tipHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .tipTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1E1B4B;
+  }
+  
+  .tipIcon {
+    font-size: 24px;
+    color: #7B61FF;
+  }
+  
+  .tipText {
+    font-size: 15px;
+    color: #3730A3;
+    line-height: 1.5;
+    margin-top: 20px;
+  }
