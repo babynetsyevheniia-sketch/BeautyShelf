@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 60px;
+  background: transparent; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #111827;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navLink {
+  padding: 8px 20px;
+  border-radius: 20px; 
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.navLink:hover {
+  color: #111827;
+}
+
+
+.active {
+  background-color: #ede9fe !important;
+  color: #6d28d9 !important;
+  font-weight: 600;
+}

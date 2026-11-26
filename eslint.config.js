@@ -40,7 +40,7 @@ export default [
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
-  // Чітке визначення Cypress-глобалів для тестових файлів
+
   {
     files: ['cypress/**/*.{js,jsx}', 'src/**/*.cy.{js,jsx}'],
     plugins: {

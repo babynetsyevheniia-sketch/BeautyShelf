@@ -1,16 +1,22 @@
 import { defineConfig } from 'cypress';
+import registerCodeCoverageTasks from '@cypress/code-coverage/task';
 
 export default defineConfig({
   e2e: {
-    setupNodeEvents(_on, _config) {
-      // implement node event listeners here
+    baseUrl: 'http://localhost:5173',
+    setupNodeEvents(on, config) {
+      registerCodeCoverageTasks(on, config);
+      return config;
     },
   },
-
   component: {
     devServer: {
       framework: 'react',
       bundler: 'vite',
+    },
+    setupNodeEvents(on, config) {
+      registerCodeCoverageTasks(on, config);
+      return config;
     },
   },
 });
